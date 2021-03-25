@@ -8,13 +8,17 @@ function display() {
 }
 display();
 
-function showDescription() {
+/**
+ * Adds the form and fills dynamically the list of quizzes.
+ * It also sends the chosen quiz to the quiz page
+ */
+function quizzDescription() {
     for (let element in quizzes) {
 
         $("#quizId").append($("<option>")
-            .val(quizzes[element].title)
+            .val(quizzes[element])
             .text(quizzes[element].title)
         )
     }
 }
-showDescription();
+quizzDescription();
