@@ -1,10 +1,17 @@
-function showDescription() {
-    quizzes.forEach(element =>
-        $("#quizId").append($("<option>")
-            .val(element["title"])
-            .text(element["description"])
-        )
-    );
-};
+function display() {
+    for (let element in quizzes) {
+        console.log(element, quizzes[element].title);
+    }
+}
+display();
 
-console.log(showDescription);
+function showDescription() {
+    for (let element in quizzes) {
+
+        $("#quizId").append($("<option>")
+            .val(quizzes[element].title)
+            .text(quizzes[element].title)
+        )
+    }
+}
+showDescription();
