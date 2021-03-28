@@ -16,7 +16,7 @@ function quizzDescription() {
     for (let element in quizzes) {
 
         $("#quizId").append($("<option>")
-            .val(quizzes[element].id)
+            .val(element)
             .text(quizzes[element].title)
         )
     }
