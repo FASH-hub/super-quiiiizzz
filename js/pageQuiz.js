@@ -30,6 +30,7 @@ function playQuiz(array) {
             break;
     }
     for (let i = 0; i < tab.length; i++) {
+        console.log(tab[i].question);
         $("#questions").append($("<div>").attr("id", tab[i].id))
         $("#" + tab[i].id).append($("<p>").text(tab[i].question));
 

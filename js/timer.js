@@ -7,7 +7,7 @@ function timer() {
 }
 
 function next() {
-    console.log(time);
+
     document.getElementById('timer').innerHTML = time;
     time--;
     if (time == -2) {
