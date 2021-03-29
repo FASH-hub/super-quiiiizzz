@@ -50,7 +50,7 @@ function playQuiz(array) {
         }
 
     }
-    $("#questions").append($("<button id='button' onclick='resultat()'>").text('soumettre'));
+    $("#questions").append($("<button id='button' onclick='resultat()'>").text('Verification'));
 }
 
 window.onload = timer();
