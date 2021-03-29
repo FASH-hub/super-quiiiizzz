@@ -52,4 +52,4 @@ function playQuiz(array) {
     $("#questions").append($("<button id='button' onclick='resultat()'>").text('soumettre'));
 }
 
-window.onload = displaySelectedQuiz();
+window.onload = timer();
