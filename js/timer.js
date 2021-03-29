@@ -1,11 +1,17 @@
 let time = 3;
 
-var timerDecompte;
+let timerDecompte;
 
+/**
+ * Creates timer required before displaying the selected.
+ */
 function timer() {
     timerDecompte = setInterval("next()", 1500);
 }
 
+/**
+ * Defines from when starts and ends the timer.
+ */
 function next() {
 
     document.getElementById('timer').innerHTML = time;

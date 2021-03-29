@@ -1,5 +1,7 @@
+/**
+ * Displays the selected quiz on the quizz's page.
+ */
 function displaySelectedQuiz() {
-
 
     let SelectedQuiz = new URL(location.href).searchParams.get("quiz");
     let descript = "";
@@ -13,6 +15,10 @@ function displaySelectedQuiz() {
 
 }
 
+/**
+ * Implements the selected quizz from the quizzes container.
+ * @param {quizzes container} array 
+ */
 function playQuiz(array) {
     let tab;
     switch (array) {
@@ -39,7 +45,7 @@ function playQuiz(array) {
         $("#" + tab[i].id).append($("<form>").attr("id", "answer-" + tab[i].id));
         for (let j = 0; j < tab[i].reponses.length; j++) {
 
-            if (tab === questions_jeux || tab === questions_couples) {
+            if (tab === questions_webg2 || tab === questions_couples) {
                 $("#answer-" + tab[i].id).append($("<input type='checkbox' name='answer'>").text(tab[i].reponses[j]))
 
             } else {
@@ -50,7 +56,7 @@ function playQuiz(array) {
         }
 
     }
-    $("#questions").append($("<button id='button' onclick='resultat()'>").text('Verification'));
+    $("#questions").append($("<button id='button' onclick='resultat()'>").text('verification'));
 }
 
 window.onload = timer();
