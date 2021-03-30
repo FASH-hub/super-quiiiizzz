@@ -32,10 +32,10 @@ function playQuiz(array) {
         for (let j = 0; j < tab[i].reponses.length; j++) {
 
             if (tab === questions_webg2 || tab === questions_couples) {
-                $("#answer-" + tab[i].id).append($("<input type='checkbox' name='answer'>").text(tab[i].reponses[j]))
+                $("#answer-" + tab[i].id).append($("<input type='checkbox' name='answer' id='" + tab[i].id + ',' + j + "'>").text(tab[i].reponses[j]))
 
             } else {
-                $("#answer-" + tab[i].id).append($("<input type='radio' name='answer'>").text(tab[i].reponses[j]))
+                $("#answer-" + tab[i].id).append($("<input type='radio' name='answer' id=" + tab[i].id + ',' + j + "' >").text(tab[i].reponses[j]))
             }
             $("#answer-" + tab[i].id).append($("<label>").text(tab[i].reponses[j]))
             $("#answer-" + tab[i].id).append($("<br/>"));
