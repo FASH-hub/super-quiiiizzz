@@ -20,21 +20,7 @@ function displaySelectedQuiz() {
  * @param {quizzes container} array 
  */
 function playQuiz(array) {
-    let tab;
-    switch (array) {
-        case "mer":
-            tab = questions_mer;
-            break;
-        case "couples":
-            tab = questions_couples;
-            break;
-        case "jeux":
-            tab = questions_jeux;
-            break;
-        case "webg2":
-            tab = questions_webg2;
-            break;
-    }
+    let tab = quizzes[array].data;
     for (let i = 0; i < tab.length; i++) {
         console.log(tab[i].question);
         $("#questions").append($("<div>").attr("id", tab[i].id))
