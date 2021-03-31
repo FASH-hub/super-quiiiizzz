@@ -1,32 +1,32 @@
 function checkedAnswer() {
     let tabReponses = [];
-    var selectedQuizz = new URL(location.href).searchParams.get("quizz");
+    let selectedQuizz = new URL(location.href).searchParams.get("quizz");
     let array = quizzes[selectedQuizz].data;
     if (selectedQuizz == "mer" || selectedQuizz == "jeux") {
-        for (var i = 0; i < array.length; i++) {
+        for (let i = 0; i < array.length; i++) {
             let tabRepQuestion = [];
-            var rep = new URL(location.href).searchParams.get("answer" + array[i].id);
+            let rep = new URL(location.href).searchParams.get("answer" + array[i].id);
             tabRepQuestion.push(rep);
             tabReponses.push(tabRepQuestion);
             tabReponses = convertionTabRadio(tabReponses);
         }
     } else {
-        for (var i = 0; i < array.length; i++) {
+        for (let i = 0; i < array.length; i++) {
             let tabRepQuestion = [];
-            for (var j = 0; j < array[i].reponses.length; j++) {
-                var rep = new URL(location.href).searchParams.get("answer" + array[i].id + ',' + j);
+            for (let j = 0; j < array[i].reponses.length; j++) {
+                let rep = new URL(location.href).searchParams.get("answer" + array[i].id + ',' + j);
                 tabRepQuestion.push(rep);
             }
             tabReponses.push(tabRepQuestion);
             tabReponses = conversionTabCheckbox(tabReponses);
         }
     }
-    return tabReponses;
+    compare(array, tabReponses, array);
 }
 
 function convertionTabRadio(tab) {
-    for (var i = 0; i < tab.length; i++) {
-        for (var j = 0; j < tab[i].length; j++) {
+    for (let i = 0; i < tab.length; i++) {
+        for (let j = 0; j < tab[i].length; j++) {
             switch (tab[i][j]) {
                 case "0":
                     tab[i][j] = 0;
@@ -45,9 +45,9 @@ function convertionTabRadio(tab) {
 
 function conversionTabCheckbox(tab) {
     var newTab = [];
-    for (var i = 0; i < tab.length; i++) {
-        var miniTab = [];
-        for (var j = 0; j < tab[i].length; j++) {
+    for (let i = 0; i < tab.length; i++) {
+        let miniTab = [];
+        for (let j = 0; j < tab[i].length; j++) {
             if (tab[i][j] != null) {
                 miniTab.push(j);
             }
@@ -57,19 +57,49 @@ function conversionTabCheckbox(tab) {
     return newTab;
 }
 
-function compare(array, tabReponse) {
+function compare(array, tabReponse, tableauGeneral) {
 
-    for (var i = 0; i < array.length; i++) {
-        if (compareTableau(array[i].bonneReponses, tabReponse)) {
-            //afficher Bonne réponse
+    for (let i = 0; i < array.length; i++) {
+        if (compareTableau(array[i].bonneReponses, tabReponse[i]) == true) {
+            console.log(i);
+            for (let j = 0; j < tableauGeneral[i].bonneReponses.length; j++) {
+                console.log("bravo, c'était bien : " + tableauGeneral[i].reponses[tableauGeneral[i].bonneReponses[j]]);
+                afficherBonneReponse(tableauGeneral[i].reponses[tableauGeneral[i].bonneReponses[j]], true);
+            }
         } else {
-            //afficher correction
+            let fausseRep = compareTableau(array[i].bonneReponses, tabReponse[i]);
+            console.log('yooooo');
+            console.log(tableauGeneral[i].reponses[fausseRep] + " était faux");
+            afficherMauvaiseReponse(tableauGeneral[i].reponses[fausseRep]);
+            for (let j = 0; j < tableauGeneral[i].bonneReponses.length; j++) {
+                console.log("bonne réponse était : " + tableauGeneral[i].reponses[tableauGeneral[i].bonneReponses[j]]);
+                afficherBonneReponse(tableauGeneral[i].reponses[tableauGeneral[i].bonneReponses[j]], false);
+            }
         }
     }
 }
 
+function afficherBonneReponse(reponse, boolean) {
+    let balise = document.createElement('p');
+    if (boolean) {
+        balise.setAttribute('id', "right");
+        balise.textContent = "bravo, c'était bien : " + reponse;
+    } else {
+        balise.setAttribute('id', 'espére')
+        balise.textContent = "une bonne réponse était : " + reponse;
+    }
+    document.getElementById('resultats').append(balise);
+}
+
+function afficherMauvaiseReponse(reponse) {
+    let balise = document.createElement('p');
+    balise.setAttribute('id', "mauvais");
+    balise.textContent = "ce n'était pas : " + reponse;
+    document.getElementById('resultats').append(balise);
+}
+
 function compareTableau(tabInit, tabRep) {
-    for (var i = 0; i < tab1.length; i++) {
+    for (let i = 0; i < tabInit.length; i++) {
         if (tabInit[i] != tabRep[i]) {
             return tabRep[i];
         }
@@ -77,9 +107,5 @@ function compareTableau(tabInit, tabRep) {
     return true;
 }
 
-function recupResult() {
-    var reponses = checkedAnswer();
-    console.log(reponses)
-}
 
-window.onload = recupResult();
+window.onload = checkedAnswer();
