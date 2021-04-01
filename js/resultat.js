@@ -79,17 +79,17 @@ function conversionTabCheckbox(tab) {
  * @param {array} tabReponse selected answers by the player 
  */
 function compare(array, tabReponse) {
-    var result = document.createElement('h1');
+    let result = document.createElement('h1');
     result.textContent = "Results :"
     document.getElementById('resultats').append(result);
     for (let i = 0; i < array.length; i++) {
-        var question = document.createElement('p')
+        let question = document.createElement('p')
         question.textContent = i + 1 + " : " + array[i].question;
         document.getElementById('resultats').append(question);
         document.getElementById('resultats').append
         if (compareTableau(array[i].bonneReponses, tabReponse[i]) == true) {
             let balise = document.createElement('p');
-            balise.textContent = "Well done!! The correct answer is "
+            balise.textContent = "Well done!! You gave the correct answer --> "
             for (let j = 0; j < array[i].bonneReponses.length; j++) {
                 balise.textContent = balise.textContent + array[i].reponses[array[i].bonneReponses[j]] + ' , ';
             }
