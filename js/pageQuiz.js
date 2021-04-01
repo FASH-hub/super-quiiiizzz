@@ -1,5 +1,6 @@
 /**
- * Displays the selected quiz on the quizz's page.
+ * Gets the id of selected quizz on the previous page.
+ * Displays the description of the quizz
  */
 function displaySelectedQuiz() {
 

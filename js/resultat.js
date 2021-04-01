@@ -1,3 +1,9 @@
+/**
+ * Checks the answers.
+ * It first gets the quizz via URL and puts the answers to the questions in array
+ * Selected answers are by after inserted in in main array 
+ * 
+ */
 function checkedAnswer() {
     let tabReponses = [];
     let selectedQuizz = new URL(location.href).searchParams.get("quizz");
@@ -24,6 +30,11 @@ function checkedAnswer() {
     compare(array, tabReponses, array);
 }
 
+/**
+ * Converts strings values to int values
+ * @param {array} tab string values 
+ * @returns array containing int values
+ */
 function convertionTabRadio(tab) {
     for (let i = 0; i < tab.length; i++) {
         for (let j = 0; j < tab[i].length; j++) {
@@ -43,6 +54,11 @@ function convertionTabRadio(tab) {
     return tab;
 }
 
+/**
+ * Removes the null values from the array 2D of int values.
+ * @param {array} tab of int values 
+ * @returns array of int values without null values
+ */
 function conversionTabCheckbox(tab) {
     var newTab = [];
     for (let i = 0; i < tab.length; i++) {
@@ -57,47 +73,72 @@ function conversionTabCheckbox(tab) {
     return newTab;
 }
 
-function compare(array, tabReponse, tableauGeneral) {
-
+/**
+ * Checks the answers and displays them on result's page
+ * @param {[]} array quizz
+ * @param {array} tabReponse selected answers by the player 
+ */
+function compare(array, tabReponse) {
+    var result = document.createElement('h1');
+    result.textContent = "Results :"
+    document.getElementById('resultats').append(result);
     for (let i = 0; i < array.length; i++) {
+        var question = document.createElement('p')
+        question.textContent = i + 1 + " : " + array[i].question;
+        document.getElementById('resultats').append(question);
+        document.getElementById('resultats').append
         if (compareTableau(array[i].bonneReponses, tabReponse[i]) == true) {
-            console.log(i);
-            for (let j = 0; j < tableauGeneral[i].bonneReponses.length; j++) {
-                console.log("bravo, c'était bien : " + tableauGeneral[i].reponses[tableauGeneral[i].bonneReponses[j]]);
-                afficherBonneReponse(tableauGeneral[i].reponses[tableauGeneral[i].bonneReponses[j]], true);
+            let balise = document.createElement('p');
+            balise.textContent = "Well done!! The correct answer is "
+            for (let j = 0; j < array[i].bonneReponses.length; j++) {
+                balise.textContent = balise.textContent + array[i].reponses[array[i].bonneReponses[j]] + ' , ';
             }
+            afficherBonneReponse(balise, true);
         } else {
             let fausseRep = compareTableau(array[i].bonneReponses, tabReponse[i]);
-            console.log('yooooo');
-            console.log(tableauGeneral[i].reponses[fausseRep] + " était faux");
-            afficherMauvaiseReponse(tableauGeneral[i].reponses[fausseRep]);
-            for (let j = 0; j < tableauGeneral[i].bonneReponses.length; j++) {
-                console.log("bonne réponse était : " + tableauGeneral[i].reponses[tableauGeneral[i].bonneReponses[j]]);
-                afficherBonneReponse(tableauGeneral[i].reponses[tableauGeneral[i].bonneReponses[j]], false);
+
+            afficherMauvaiseReponse(array[i].reponses[fausseRep]);
+            let balise = document.createElement('p');
+            balise.textContent = "Expected answer was "
+            for (let j = 0; j < array[i].bonneReponses.length; j++) {
+                balise.textContent = balise.textContent + array[i].reponses[array[i].bonneReponses[j]] + ' , ';
             }
+            afficherBonneReponse(balise, false);
         }
     }
 }
 
-function afficherBonneReponse(reponse, boolean) {
-    let balise = document.createElement('p');
+/**
+ * Colorises the content in tags
+ * @param {*} tag contains answers 
+ * @param {*} boolean right or wrong answer
+ */
+function afficherBonneReponse(tag, boolean) {
     if (boolean) {
-        balise.setAttribute('id', "right");
-        balise.textContent = "bravo, c'était bien : " + reponse;
+        tag.setAttribute('id', "correct");
     } else {
-        balise.setAttribute('id', 'espére')
-        balise.textContent = "une bonne réponse était : " + reponse;
+        tag.setAttribute('id', 'expected')
     }
-    document.getElementById('resultats').append(balise);
+    document.getElementById('resultats').append(tag);
 }
 
+/**
+ * Displays the selected wrong answer by the player
+ * @param {mauvaise réponse d'une question} reponse 
+ */
 function afficherMauvaiseReponse(reponse) {
-    let balise = document.createElement('p');
-    balise.setAttribute('id', "mauvais");
-    balise.textContent = "ce n'était pas : " + reponse;
-    document.getElementById('resultats').append(balise);
+    let tag = document.createElement('p');
+    tag.setAttribute('id', "wrong");
+    tag.textContent = "Sorry you've got it wrong!! You answered " + reponse;
+    document.getElementById('resultats').append(tag);
 }
 
+/**
+ * Checks if the player answered correctly
+ * @param {[]} tabInit correct answers 
+ * @param {[]} tabRep selected answers by the player
+ * @returns true if the selected answers are correct, false otherwise.
+ */
 function compareTableau(tabInit, tabRep) {
     for (let i = 0; i < tabInit.length; i++) {
         if (tabInit[i] != tabRep[i]) {
@@ -107,5 +148,7 @@ function compareTableau(tabInit, tabRep) {
     return true;
 }
 
-
+/**
+ * Launch the verification
+ */
 window.onload = checkedAnswer();

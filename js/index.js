@@ -1,5 +1,5 @@
 /**
- * Displays in the console the list of quizz' id's.
+ * Displays in the console the id's of each quizz.
  */
 function display() {
     for (let element in quizzes) {
@@ -10,7 +10,7 @@ display();
 
 /**
  * Adds the form and fills dynamically the list of quizzes.
- * It also sends the chosen quiz to the quiz page
+ * It also sends the id of chosen quiz to the page reserved for the quizz
  */
 function quizzDescription() {
     for (let element in quizzes) {

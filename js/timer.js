@@ -6,7 +6,7 @@ let timerDecompte;
  * Creates timer required before displaying the selected.
  */
 function timer() {
-    timerDecompte = setInterval("next()", 30);
+    timerDecompte = setInterval("next()", 1000);
 }
 
 /**
