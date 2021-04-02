@@ -46,7 +46,7 @@ function playQuiz(array) {
 
     }
     document.getElementById('quizz').setAttribute('value', array);
-    $("#questions").append($("<button id='button'>").text('verification'));
+    $("#questions").append($("<button id='button'>").text('SOUMETTRE'));
 }
 
 window.onload = timer();
