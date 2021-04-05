@@ -5,14 +5,13 @@
 function displaySelectedQuiz() {
 
     let SelectedQuiz = new URL(location.href).searchParams.get("quiz");
-    let descript = "";
+
 
     for (let element in quizzes) {
         if (element === SelectedQuiz) {
             playQuiz(element);
         }
     }
-    $("#description").text(descript);
 
 }
 
