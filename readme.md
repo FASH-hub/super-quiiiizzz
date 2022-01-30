@@ -27,3 +27,8 @@ The results page displays the the right and wrong answers
 In case of wrong answers, the correct answer is displayed aside as correction
 
 ![results](images/results.png)
+
+## View
+
+It is viewble on this github page link below:
+[Super Quiiiiizzzz github page](https://fash-hub.github.io/super-quiiiizzz/).
