@@ -1,6 +1,10 @@
 # Super Quiiiiizzzz
 
-This is a website that proposes some quiz.
+Web project developped while learning web development at H2B-Haute Ecole Bruxelles-Brabant, ESI (Ecole Supérieure de l'Informatique), first grade
+
+Web development tecnologies as Html, CSS,  JavaScript and Jquery are highlightned
+
+It is a website that suggests some quiz.
 It starts with a page that suggests to choose a quizz from a serie of quiz.
 
 ![home](images/home.png)
