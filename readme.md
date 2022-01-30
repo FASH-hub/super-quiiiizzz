@@ -19,7 +19,7 @@ There are 3 types of quiz depending on the choice made:
 
 ## End of game
 
-The results page displays the the right and wrong answers. 
+The results page displays the the right and wrong answers
 In case of wrong answers, the correct answer is displayed aside as correction
 
 ![results](images/results.png)
