@@ -5,16 +5,20 @@ body {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-
 }
 
 header {
     color: #FCCB1A;
     background-color: #092834;
     width: 100%;
-    padding: 10px 0;
-    text-align: center;
+    padding-bottom: 10px;
     border-radius: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: #FCCB1A;
+    margin-left: 2%;
 }
 
 main {
@@ -22,7 +26,6 @@ main {
 }
 
 h1 {
-
     font-style: italic;
     font-weight: bold;
     text-align: center;
@@ -33,7 +36,6 @@ h2 {
 }
 
 fieldset {
-
     bottom: 25%;
     margin: 100px 0;
     padding: 60px;
@@ -41,14 +43,11 @@ fieldset {
     font-size: 1.50em;
     border-radius: 30px 30px;
     background-color: #EFF6D5;
-
 }
 
 button {
-
     position: relative;
     text-align: center;
-
 }
 
 select {

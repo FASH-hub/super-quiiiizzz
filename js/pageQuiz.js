@@ -27,7 +27,7 @@ function playQuiz(array) {
         $("#questions").append($("<div>").attr("id", tab[i].id))
         $("#" + tab[i].id).append($("<p>").text(tab[i].question));
 
-        $("#" + tab[i].id).append($("<img>").attr("src", "../images/" + tab[i].image));
+        $("#" + tab[i].id).append($("<img>").attr("src", "images/" + tab[i].image));
 
         $("#" + tab[i].id).append($("<div>").attr("id", "answer-" + tab[i].id));
         $("#" + "answer-" + tab[i].id).attr('name', "answer-" + tab[i].id);
