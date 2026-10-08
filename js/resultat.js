@@ -1,17 +1,18 @@
+"use strict";
+
 /**
  * Checks the answers.
- * It first gets the quizz via URL and puts the answers to the questions in array
- * Selected answers are by after inserted in in main array 
- * 
+ * Gets the quiz via URL and collects selected answers into an array.
  */
 function checkedAnswer() {
+    const params = new URL(location.href).searchParams;
     let tabReponses = [];
-    let selectedQuizz = new URL(location.href).searchParams.get("quizz");
+    let selectedQuizz = params.get("quizz");
     let array = quizzes[selectedQuizz].data;
     if (selectedQuizz == "mer" || selectedQuizz == "jeux") {
         for (let i = 0; i < array.length; i++) {
             let tabRepQuestion = [];
-            let rep = new URL(location.href).searchParams.get("answer" + array[i].id);
+            let rep = params.get("answer" + array[i].id);
             tabRepQuestion.push(rep);
             tabReponses.push(tabRepQuestion);
             tabReponses = convertionTabRadio(tabReponses);
@@ -20,34 +21,26 @@ function checkedAnswer() {
         for (let i = 0; i < array.length; i++) {
             let tabRepQuestion = [];
             for (let j = 0; j < array[i].reponses.length; j++) {
-                let rep = new URL(location.href).searchParams.get("answer" + array[i].id + ',' + j);
+                let rep = params.get("answer" + array[i].id + ',' + j);
                 tabRepQuestion.push(rep);
             }
             tabReponses.push(tabRepQuestion);
             tabReponses = conversionTabCheckbox(tabReponses);
         }
     }
-    compare(array, tabReponses, array);
+    compare(array, tabReponses);
 }
 
 /**
- * Converts strings values to int values
- * @param {array} tab string values 
+ * Converts string values to int values using parseInt.
+ * @param {array} tab string values
  * @returns array containing int values
  */
 function convertionTabRadio(tab) {
     for (let i = 0; i < tab.length; i++) {
         for (let j = 0; j < tab[i].length; j++) {
-            switch (tab[i][j]) {
-                case "0":
-                    tab[i][j] = 0;
-                    break;
-                case "1":
-                    tab[i][j] = 1;
-                    break;
-                case "2":
-                    tab[i][j] = 2;
-                    break;
+            if (tab[i][j] !== null) {
+                tab[i][j] = parseInt(tab[i][j], 10);
             }
         }
     }
@@ -55,9 +48,9 @@ function convertionTabRadio(tab) {
 }
 
 /**
- * Removes the null values from the array 2D of int values.
- * @param {array} tab of int values 
- * @returns array of int values without null values
+ * Removes the null values from the 2D array.
+ * @param {array} tab of values
+ * @returns array without null values (keeps only answered indices)
  */
 function conversionTabCheckbox(tab) {
     var newTab = [];
@@ -74,9 +67,9 @@ function conversionTabCheckbox(tab) {
 }
 
 /**
- * Checks the answers and displays them on result's page
- * @param {[]} array quizz
- * @param {array} tabReponse selected answers by the player 
+ * Checks the answers and displays them on the results page.
+ * @param {[]} array quiz data
+ * @param {array} tabReponse selected answers by the player
  */
 function compare(array, tabReponse) {
     let result = document.createElement('h1');
@@ -86,7 +79,6 @@ function compare(array, tabReponse) {
         let question = document.createElement('p')
         question.textContent = i + 1 + " : " + array[i].question;
         document.getElementById('resultats').append(question);
-        document.getElementById('resultats').append
         if (compareTableau(array[i].bonneReponses, tabReponse[i]) == true) {
             let balise = document.createElement('p');
             balise.textContent = "Well done!! You gave the correct answer --> "
@@ -109,35 +101,31 @@ function compare(array, tabReponse) {
 }
 
 /**
- * Colorises the content in tags
- * @param {*} tag contains answers 
- * @param {*} boolean right or wrong answer
+ * Applies a class to colour the answer tag.
+ * @param {Element} tag contains the answer text
+ * @param {boolean} isCorrect true for correct, false for expected
  */
-function afficherBonneReponse(tag, boolean) {
-    if (boolean) {
-        tag.setAttribute('id', "correct");
-    } else {
-        tag.setAttribute('id', 'expected')
-    }
+function afficherBonneReponse(tag, isCorrect) {
+    tag.classList.add(isCorrect ? 'correct' : 'expected');
     document.getElementById('resultats').append(tag);
 }
 
 /**
- * Displays the selected wrong answer by the player
- * @param {mauvaise réponse d'une question} reponse 
+ * Displays the wrong answer selected by the player.
+ * @param {string} reponse the wrong answer text
  */
 function afficherMauvaiseReponse(reponse) {
     let tag = document.createElement('p');
-    tag.setAttribute('id', "wrong");
+    tag.classList.add('wrong');
     tag.textContent = "Sorry you've got it wrong!! You answered " + reponse;
     document.getElementById('resultats').append(tag);
 }
 
 /**
- * Checks if the player answered correctly
- * @param {[]} tabInit correct answers 
+ * Checks if two answer arrays match.
+ * @param {[]} tabInit correct answers
  * @param {[]} tabRep selected answers by the player
- * @returns true if the selected answers are correct, false otherwise.
+ * @returns true if correct, or the mismatched player answer value if wrong.
  */
 function compareTableau(tabInit, tabRep) {
     for (let i = 0; i < tabInit.length; i++) {
@@ -148,7 +136,4 @@ function compareTableau(tabInit, tabRep) {
     return true;
 }
 
-/**
- * Launch the verification
- */
 window.onload = checkedAnswer();

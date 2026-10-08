@@ -3,22 +3,22 @@ let time = 3;
 let timerDecompte;
 
 /**
- * Creates timer required before displaying the selected.
+ * Creates timer required before displaying the selected quiz.
  */
 function timer() {
-    timerDecompte = setInterval("next()", 1000);
+    timerDecompte = setInterval(next, 1000);
 }
 
 /**
- * Defines from when starts and ends the timer.
+ * Counts down from 3 to 1, then starts the quiz.
  */
 function next() {
-
-    document.getElementById('timer').innerHTML = time;
-    time--;
-    if (time == -2) {
+    if (time === 0) {
         clearInterval(timerDecompte);
         document.getElementById('timer').remove();
         displaySelectedQuiz();
+        return;
     }
+    document.getElementById('timer').innerHTML = time;
+    time--;
 }
